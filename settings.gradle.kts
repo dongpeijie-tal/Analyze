@@ -17,3 +17,4 @@ rootProject.name = "Analyze"
 include(":app")
 include(":game")
 include(":balance")
+include(":common")
