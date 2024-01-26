@@ -12,6 +12,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color.Companion.Blue
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -24,13 +25,10 @@ import com.tal.balance.ui.theme.balanceTextStyle
 @Composable
 fun Result(navigateRecommend: ()->Unit, modifier: Modifier = Modifier) {
     Column(modifier = modifier.padding(16.dp)) {
-        // title 结算标题->测试结果
-        Text(text = "测试结果", style = MaterialTheme.typography.titleMedium,fontFamily = balanceTextStyle, fontSize = 60.sp)
-        Spacer(modifier = Modifier.height(16.dp))
         // 分三块
         // 第一块 五个进度条，进度条五个颜色，浅白色底
         for (i in 1..5) {
-            LinearProgressIndicator(progress = i / 5f, color = White)
+            LinearProgressIndicator(progress = i / 5f, color = White, trackColor = Blue,)
             Spacer(modifier = Modifier.height(8.dp))
         }
         Spacer(modifier = Modifier.height(16.dp))
