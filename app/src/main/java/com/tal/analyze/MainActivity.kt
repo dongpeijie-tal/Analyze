@@ -21,6 +21,15 @@ import com.tal.common.utils.AppRouter
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // 开发环境配置本地启动环境
+        when(BuildConfig.initArg){
+            "game"->{
+                AppRouter.go(Route.ROUTE_GAME)
+            }
+            "balance"->{
+                AppRouter.go(Route.ROUTE_BALANCE)
+            }
+        }
         setContent {
             AnalyzeTheme {
                 Surface(

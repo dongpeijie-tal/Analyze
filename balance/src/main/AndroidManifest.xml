@@ -5,6 +5,7 @@
         <activity
             android:name=".BalanceActivity"
             android:exported="false"
+            android:screenOrientation="landscape"
             android:label="@string/title_activity_balance"
             android:theme="@style/Theme.Analyze" />
     </application>
