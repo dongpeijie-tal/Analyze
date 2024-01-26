@@ -6,12 +6,12 @@ plugins {
 
 android {
     namespace = "com.tal.analyze"
-    compileSdk = 33
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.tal.analyze"
         minSdk = 24
-        targetSdk = 33
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -70,4 +70,5 @@ dependencies {
     debugImplementation("androidx.compose.ui:ui-test-manifest")
     implementation(project(":balance"))
     implementation(project(":game"))
+    implementation(project(":common"))
 }
