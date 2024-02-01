@@ -15,3 +15,7 @@ val White = Color(0xFFFFFFFF)
 val White_50 = Color(0x50FFFFFF)
 
 val BackGroundColor = Color(0xffffc64b)
+val TextColor = Color(0xff4D4D4D)
+val ProgressBackColor = Color(0xffcccccc)
+val ProgressStartColor = Color(0xff99ccff)
+val ProgressEndColor = Color(0xff003366)
