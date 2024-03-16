@@ -14,6 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.tal.analyze.bugle.runBugleTest
 import com.tal.analyze.ui.theme.AnalyzeTheme
 import com.tal.common.Route
 import com.tal.common.utils.AppRouter
@@ -40,6 +41,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+        runBugleTest()
     }
 }
 
