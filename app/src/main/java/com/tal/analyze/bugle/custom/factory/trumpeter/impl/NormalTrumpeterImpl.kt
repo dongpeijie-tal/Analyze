@@ -33,7 +33,7 @@ class NormalTrumpeterImpl: ITrumpeterFactory {
      * 准备号角
      */
     private fun prepareBugle():Bugle{
-        return BugleManager.getSingleBugle()
+        return BugleManager.singleBugle()
     }
 
 }
