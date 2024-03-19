@@ -1,4 +1,4 @@
-package com.tal.analyze.bugle.custom
+package com.tal.analyze.bugle.custom.manager
 
 import com.tal.analyze.bugle.custom.utils.lifeSafe
 
@@ -13,22 +13,10 @@ import com.tal.analyze.bugle.custom.utils.lifeSafe
  *
  */
 internal object BugleSchedule {
-
-    private val _globalBugle by lifeSafe{
-        SingleBugle()
+    // 舞台，为号手提供吹号地址
+    val stage by lifeSafe {
+        Schedule()
     }
 
-    private val globalBugle = _globalBugle
-
-    fun activitySchedule(){
-
-    }
-
-    /**
-     * 创建一个号角
-     */
-    private fun bugleMaking(){
-
-    }
 }
 

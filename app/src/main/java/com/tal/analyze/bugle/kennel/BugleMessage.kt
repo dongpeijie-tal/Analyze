@@ -1,3 +1,9 @@
 package com.tal.analyze.bugle.kennel
 
-internal data class BugleMessage<T>(val key: String,val message: T)
+import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
+
+internal data class BugleMessage(
+    val key: String,
+    val message: Any?,
+    val progressCallback: PuffProgressCallback?
+)

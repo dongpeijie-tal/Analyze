@@ -1,21 +1,47 @@
 package com.tal.analyze.bugle
 
-import com.tal.analyze.bugle.custom.listener.PuffProgressCallback
-import com.tal.analyze.bugle.custom.puff
-import com.tal.analyze.bugle.custom.register
+import androidx.lifecycle.Lifecycle
+import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
+import com.tal.analyze.bugle.custom.open.DispatchThread
+import com.tal.analyze.bugle.custom.open.IPuffIntercept
+import com.tal.analyze.bugle.custom.open.listening
+import com.tal.analyze.bugle.custom.open.puff
 
-fun runBugleTest(){
-    puff("",""){
-        intercepts = mutableListOf()
+fun runBugleTest(lifecycle: Lifecycle){
+    // 发送消息
+    puff("key","value"){
+        intercepts = mutableListOf(JsonConvertIntercept())
         progressCallback = object : PuffProgressCallback(){
             override fun unHandler() {
+                println("没有接收者")
+            }
 
+            override fun onFail(e: Exception) {
+                super.onFail(e)
+            }
+
+            override fun onSuccess() {
+                super.onSuccess()
             }
         }
     }
-    register<TestBean>(""){
 
+    // 注册消息
+    listening<String>("key", optionBuilder = {
+        thread = DispatchThread.MAIN
+        this.lifecycle = lifecycle
+    }){
+        println("接收到消息$it")
     }
 }
 
-data class TestBean(val name: String,val age: Int,val favor: List<String>)
+/**
+ * json转换拦截器
+ */
+class JsonConvertIntercept: IPuffIntercept{
+    override fun intercept(chain: IPuffIntercept.IPuffChain) {
+        val bean = chain.getPuffContent<String>()
+        chain.process(bean)
+    }
+
+}

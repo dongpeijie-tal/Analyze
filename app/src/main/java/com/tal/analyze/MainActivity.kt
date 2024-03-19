@@ -41,7 +41,7 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
-        runBugleTest()
+        runBugleTest(lifecycle)
     }
 }
 

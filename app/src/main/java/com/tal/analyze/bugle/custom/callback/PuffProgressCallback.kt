@@ -1,4 +1,4 @@
-package com.tal.analyze.bugle.custom.listener
+package com.tal.analyze.bugle.custom.callback
 
 
 /**
@@ -14,11 +14,6 @@ abstract class PuffProgressCallback{
      * 发送失败，在发送途中遇到问题
      */
     open fun onFail(e: Exception){}
-
-    /**
-     * 消息排队中
-     */
-    open fun onWait(){}
 
     /**
      * 没有接收者
