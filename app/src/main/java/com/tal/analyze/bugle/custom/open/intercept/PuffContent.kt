@@ -1,4 +1,4 @@
-package com.tal.analyze.bugle.custom.open
+package com.tal.analyze.bugle.custom.open.intercept
 
 import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
 

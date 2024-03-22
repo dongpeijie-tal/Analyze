@@ -1,4 +1,4 @@
-package com.tal.analyze.bugle.custom.open
+package com.tal.analyze.bugle.custom.open.intercept
 
 /**
  * 准备吹号角拦截器

@@ -1,15 +1,15 @@
-package com.tal.analyze.bugle.custom.open
+package com.tal.analyze.bugle.custom.open.api
 
-import com.tal.analyze.bugle.custom.OptionBuilder
+import com.tal.analyze.bugle.custom.ListenerBuilder
 import com.tal.analyze.bugle.custom.PuffConfigure
 
 
-inline fun <reified T> listening(
+fun <T> listening(
     key: String,
-    noinline optionBuilder: (OptionBuilder<T>.() -> Unit)? = null,
-    noinline run: (T) -> Unit
+    optionBuilder: (ListenerBuilder<T>.() -> Unit)? = null,
+    run: (T?) -> Unit
 ) {
-    OptionBuilder<T>().apply {
+    ListenerBuilder<T>().apply {
         optionBuilder?.invoke(this)
         create(key, run)
     }

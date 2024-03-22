@@ -2,7 +2,7 @@ package com.tal.analyze.bugle.custom.factory.trumpeter.impl
 
 import com.tal.analyze.bugle.custom.factory.trumpeter.ITrumpeterFactory
 import com.tal.analyze.bugle.custom.manager.BugleSchedule
-import com.tal.analyze.bugle.custom.open.PuffContent
+import com.tal.analyze.bugle.custom.open.intercept.PuffContent
 import com.tal.analyze.bugle.kennel.Bugle
 import com.tal.analyze.bugle.kennel.BugleManager
 import com.tal.analyze.bugle.kennel.BugleMessage

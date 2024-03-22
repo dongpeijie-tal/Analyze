@@ -1,7 +1,7 @@
 package com.tal.analyze.bugle.custom.intercept.puff
 
-import com.tal.analyze.bugle.custom.open.IPuffIntercept
-import com.tal.analyze.bugle.custom.open.PuffContent
+import com.tal.analyze.bugle.custom.open.intercept.IPuffIntercept
+import com.tal.analyze.bugle.custom.open.intercept.PuffContent
 
 
 /**
@@ -37,7 +37,7 @@ internal class PuffChain(
     private fun <R> ChainBean.convertPuffContent(): PuffContent<R?> =
         PuffContent(key = key, msg = msg as R?, isStick = isStick, progressCallback = progressCallback)
 
-    private fun <T> PuffContent<T>.convertChainBean(): ChainBean =
+    private fun PuffContent<*>.convertChainBean(): ChainBean =
         ChainBean(key = key, msg = msg, isStick = isStick, progressCallback = progressCallback)
 }
 
