@@ -1,6 +1,10 @@
-package com.tal.analyze.bugle.custom.intercept.listening.lifecycle
+package com.tal.analyze.bugle.custom.intercept.listening.base
 
-internal interface IListener {
+interface IContentListener{
+
+}
+
+internal interface IListener : IContentListener {
     /**
      * 注册
      */

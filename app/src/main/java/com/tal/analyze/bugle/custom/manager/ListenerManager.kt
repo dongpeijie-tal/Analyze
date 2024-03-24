@@ -1,6 +1,6 @@
 package com.tal.analyze.bugle.custom.manager
 
-import com.tal.analyze.bugle.custom.intercept.listening.lifecycle.IListener
+import com.tal.analyze.bugle.custom.intercept.listening.base.IListener
 
 /**
  * 倾听者管理

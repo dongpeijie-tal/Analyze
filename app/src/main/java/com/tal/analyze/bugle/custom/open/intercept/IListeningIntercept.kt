@@ -1,5 +1,7 @@
 package com.tal.analyze.bugle.custom.open.intercept
 
+import com.tal.analyze.bugle.custom.intercept.listening.base.IContentListener
+
 /**
  * 聆听拦截
  */
@@ -10,9 +12,9 @@ interface IListeningIntercept<T>{
 
     interface IListeningChain<C> {
 
-        fun process(bean: ListenContent<*>)
+        fun process(listener: IContentListener)
 
-        fun getListenContent(): ListenContent<C?>
+        fun getListenListener(): IContentListener
 
     }
 }

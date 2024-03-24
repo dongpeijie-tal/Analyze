@@ -5,10 +5,11 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
-import com.tal.analyze.bugle.custom.intercept.listening.InvokeListeningIntercept
-import com.tal.analyze.bugle.custom.intercept.listening.ListenChainBean
-import com.tal.analyze.bugle.custom.intercept.listening.ListeningChain
-import com.tal.analyze.bugle.custom.intercept.listening.ListeningLifecycleIntercept
+import com.tal.analyze.bugle.custom.intercept.listening.invoke.InvokeListeningIntercept
+import com.tal.analyze.bugle.custom.intercept.listening.base.ListenChainBean
+import com.tal.analyze.bugle.custom.intercept.listening.base.ListeningChain
+import com.tal.analyze.bugle.custom.intercept.listening.lifecycle.ListeningLifecycleIntercept
+import com.tal.analyze.bugle.custom.intercept.listening.base.Listener
 import com.tal.analyze.bugle.custom.intercept.puff.ChainBean
 import com.tal.analyze.bugle.custom.intercept.puff.InvokePuffIntercept
 import com.tal.analyze.bugle.custom.intercept.puff.PuffChain
@@ -24,15 +25,17 @@ class ListenerBuilder<T>{
     var context: Context? = null
     var fragment: Fragment? = null
     var view: View? = null
-    var intercepts : MutableList<IListeningIntercept<T?>>? = null
 
-    fun create(key: String, listener: (T?) -> Unit) {
-        if(intercepts == null){
-            intercepts = mutableListOf()
-        }
-        intercepts?.add(0,InvokeListeningIntercept())
-        intercepts?.add(0,ListeningLifecycleIntercept(fragment,context,lifecycle))
-        ListeningChain(ListenChainBean(key = key,listener = listener),0,intercepts!!).call()
+    fun create(key: String, listening: (T?) -> Unit) {
+        val intercepts = mutableListOf<IListeningIntercept<T?>>()
+        // 生命周期处理
+        intercepts.add(ListeningLifecycleIntercept(fragment,context,lifecycle))
+        // 粘性消息处理
+//        intercepts.add(StickListeningIntercept(key,listening))
+        // 执行处理器
+        intercepts.add(InvokeListeningIntercept())
+        val content = Listener(key,thread, listening)
+        ListeningChain(content, ListenChainBean(key = key,listener = listening),0,intercepts).call(content)
     }
 }
 

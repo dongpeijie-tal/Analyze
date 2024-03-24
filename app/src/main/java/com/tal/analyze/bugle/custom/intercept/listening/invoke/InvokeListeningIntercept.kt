@@ -1,6 +1,6 @@
-package com.tal.analyze.bugle.custom.intercept.listening
+package com.tal.analyze.bugle.custom.intercept.listening.invoke
 
-import com.tal.analyze.bugle.custom.factory.listener.ListenFactory
+import com.tal.analyze.bugle.custom.intercept.listening.base.Listener
 import com.tal.analyze.bugle.custom.open.intercept.IListeningIntercept
 
 /**
@@ -9,8 +9,8 @@ import com.tal.analyze.bugle.custom.open.intercept.IListeningIntercept
 class InvokeListeningIntercept<T>: IListeningIntercept<T> {
 
     override fun intercept(chain: IListeningIntercept.IListeningChain<T?>) {
-        ListenFactory.createBugle().listening()
-        val content = chain.getListenContent()
+        val content = chain.getListenListener()
+        (content as Listener<T>).listening()
         chain.process(content)
     }
 }
