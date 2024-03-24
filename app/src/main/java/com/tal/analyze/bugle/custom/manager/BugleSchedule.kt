@@ -4,18 +4,24 @@ import com.tal.analyze.bugle.custom.utils.lifeSafe
 
 
 /**
- * bugle排期（生命周期）
- * 用于管理所有的bugle
- * 创建bugle条件：
- * 1、强行创建单独的bugle（一些任务及时性高，数据量大，需要单独的号手处理）
- * 2、全局bugle（用于当下什么都拿不到，但是还是要监听号角的情况）
- * 3、自动协调bugle（普通任务，只是为了方便通信）
- *
+ * bugle排期（bugle的生命周期）
+ * 用于管理scope
  */
 internal object BugleSchedule {
+
     // 舞台，为号手提供吹号地址
     val stage by lifeSafe {
         Schedule()
+    }
+
+    /**
+     * 危险方法
+     * 在你不了解框架设计的前提下，请不要随意调用此方法
+     * 作用：用于休息协程
+     * 基于activity为起点，让scope有机会休息，因为在一些页面并不需要使用此scope
+     */
+    fun stageTryRest(){
+        stage.tryRest()
     }
 
 }

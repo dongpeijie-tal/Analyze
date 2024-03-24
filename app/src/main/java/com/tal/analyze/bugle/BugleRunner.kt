@@ -19,10 +19,6 @@ fun runBugleTest(lifecycle: Lifecycle){
             override fun onFail(e: Exception) {
                 super.onFail(e)
             }
-
-            override fun onSuccess() {
-                super.onSuccess()
-            }
         }
     }
 

@@ -40,7 +40,7 @@ internal class ListenerLifeProxy<T>(
         listener.unregister()
     }
 
-    override fun listening() {
+    override fun prepareListening() {
         when (lifecycleType) {
             IListener.LifecycleType.CUSTOM, IListener.LifecycleType.FRAGMENT -> {
                 lifecycle?.addObserver(this)
@@ -73,7 +73,6 @@ internal class ListenerLifeProxy<T>(
                 // 全局不回收
             }
         }
-        listener.listening()
     }
 
     /**

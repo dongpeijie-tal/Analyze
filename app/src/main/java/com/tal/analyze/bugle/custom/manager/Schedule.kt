@@ -29,6 +29,17 @@ class Schedule : Closeable, Available {
             run()
         }
 
+    /**
+     * 危险方法
+     * 在你不了解框架设计的前提下，请不要随意改动此方法
+     * 作用：用于休息协程
+     * 基于activity为起点，让scope有机会休息，因为在一些页面并不需要使用此scope
+     */
+    fun tryRest(){
+        if(job.children.none { it.isActive }) {
+            close()
+        }
+    }
 
     override fun close() {
         job.cancel()

@@ -32,6 +32,11 @@ internal object ListenerManager {
     }
 
     /**
+     * 查找聆听者队列
+     */
+    fun findListeners(key: String) = listeners[key]
+
+    /**
      * 移除监听
      */
     fun <T> removeListener(listener: Listener<T>) {

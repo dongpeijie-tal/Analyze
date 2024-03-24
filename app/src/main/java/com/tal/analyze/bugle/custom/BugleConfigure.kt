@@ -24,6 +24,7 @@ class ListenerBuilder<T>{
     var context: Context? = null
     var fragment: Fragment? = null
     var view: View? = null
+    var autoCancel : ((T?)->Boolean)? = null
 
     fun create(key: String, listening: (T?) -> Unit) {
         val intercepts = mutableListOf<IListeningIntercept<T?>>()
@@ -33,7 +34,7 @@ class ListenerBuilder<T>{
 //        intercepts.add(StickListeningIntercept(key,listening))
         // 执行处理器
         intercepts.add(InvokeListeningIntercept())
-        val content = Listener(key,thread, listening)
+        val content = Listener(key,thread, listening,autoCancel)
         ListeningChain(content, 0,intercepts).call()
     }
 }

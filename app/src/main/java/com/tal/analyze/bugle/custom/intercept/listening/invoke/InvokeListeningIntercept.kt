@@ -1,5 +1,6 @@
 package com.tal.analyze.bugle.custom.intercept.listening.invoke
 
+import com.tal.analyze.bugle.custom.factory.listener.ListenerTaskFactory
 import com.tal.analyze.bugle.custom.intercept.listening.base.Listener
 import com.tal.analyze.bugle.custom.open.intercept.IListeningIntercept
 
@@ -9,8 +10,11 @@ import com.tal.analyze.bugle.custom.open.intercept.IListeningIntercept
 class InvokeListeningIntercept<T>: IListeningIntercept<T> {
 
     override fun intercept(chain: IListeningIntercept.IListeningChain<T?>) {
-        val content = chain.getListenListener()
-        (content as Listener<T>).listening()
-        chain.process(content)
+        // 先检查聆听者任务是否正常运转
+        ListenerTaskFactory.checkListenerTask()
+        // 把聆听者添加到队列里
+        val listener = chain.getListenListener() as Listener<T>
+        // 准备监听了。
+        listener.prepareListening()
     }
 }
