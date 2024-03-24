@@ -1,10 +1,14 @@
 package com.tal.analyze.bugle.custom.intercept.listening.base
 
-interface IContentListener{
+import com.tal.analyze.bugle.custom.open.DispatchThread
 
+interface IContentListener<T>{
+    val key: String
+    val onThread : DispatchThread
+    val listen : (T?)->Unit
 }
 
-internal interface IListener : IContentListener {
+internal interface IListener<T> : IContentListener<T> {
     /**
      * 注册
      */

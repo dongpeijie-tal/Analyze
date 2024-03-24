@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
 import com.tal.analyze.bugle.custom.intercept.listening.invoke.InvokeListeningIntercept
-import com.tal.analyze.bugle.custom.intercept.listening.base.ListenChainBean
 import com.tal.analyze.bugle.custom.intercept.listening.base.ListeningChain
 import com.tal.analyze.bugle.custom.intercept.listening.lifecycle.ListeningLifecycleIntercept
 import com.tal.analyze.bugle.custom.intercept.listening.base.Listener
@@ -29,13 +28,13 @@ class ListenerBuilder<T>{
     fun create(key: String, listening: (T?) -> Unit) {
         val intercepts = mutableListOf<IListeningIntercept<T?>>()
         // 生命周期处理
-        intercepts.add(ListeningLifecycleIntercept(fragment,context,lifecycle))
+        intercepts.add(ListeningLifecycleIntercept(view,fragment,context,lifecycle))
         // 粘性消息处理
 //        intercepts.add(StickListeningIntercept(key,listening))
         // 执行处理器
         intercepts.add(InvokeListeningIntercept())
         val content = Listener(key,thread, listening)
-        ListeningChain(content, ListenChainBean(key = key,listener = listening),0,intercepts).call(content)
+        ListeningChain(content, 0,intercepts).call()
     }
 }
 

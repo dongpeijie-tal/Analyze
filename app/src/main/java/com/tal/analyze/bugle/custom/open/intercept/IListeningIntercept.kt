@@ -12,9 +12,9 @@ interface IListeningIntercept<T>{
 
     interface IListeningChain<C> {
 
-        fun process(listener: IContentListener)
+        fun process(listener: IContentListener<C>)
 
-        fun getListenListener(): IContentListener
+        fun getListenListener(): IContentListener<C>
 
     }
 }
