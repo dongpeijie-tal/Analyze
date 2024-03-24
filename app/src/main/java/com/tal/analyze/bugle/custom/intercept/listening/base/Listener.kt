@@ -3,6 +3,8 @@ package com.tal.analyze.bugle.custom.intercept.listening.base
 import com.tal.analyze.bugle.custom.manager.ListenerManager
 import com.tal.analyze.bugle.custom.open.DispatchThread
 import com.tal.analyze.bugle.kennel.BugleMessage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 /**
  * 聆听者聆听实现
@@ -38,7 +40,14 @@ internal class Listener<T>(
                 }
             }
             // 回调 todo 可以拿到拦截器继续做拦截，目前没有需求，暂时不做
-            listen.invoke(message)
+            val dispatcher = when(onThread){
+                DispatchThread.DEFAULT-> Dispatchers.Default
+                DispatchThread.IO-> Dispatchers.IO
+                DispatchThread.MAIN-> Dispatchers.Main
+            }
+            withContext(dispatcher){
+                listen.invoke(message)
+            }
         }catch (e: ClassCastException){
             bugleMessage.progressCallback?.onFail(e)
         }
