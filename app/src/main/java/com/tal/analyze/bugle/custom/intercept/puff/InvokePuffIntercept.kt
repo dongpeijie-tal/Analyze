@@ -8,7 +8,7 @@ import com.tal.analyze.bugle.custom.stick.Gramophone
 /**
  * 真正执行bugle的地方
  */
-internal class InvokePuffIntercept : IPuffIntercept {
+internal class InvokePuffIntercept(private val isOrderly: Boolean) : IPuffIntercept {
 
     override fun intercept(chain: IPuffIntercept.IPuffChain) {
         /**
@@ -22,11 +22,15 @@ internal class InvokePuffIntercept : IPuffIntercept {
         /**
          * 检查聆听者工作台是否启动
          */
-        ListenerTaskFactory.checkListenerTask(message.key)
+        ListenerTaskFactory.checkListenerTask(message.key,isOrderly)
         /**
          * 号手工厂创建号手,执行吹奏任务
          */
-        TrumpeterFactory.create().puff(chain.getPuffContent<Any?>())
+        var trumpeterType = TrumpeterFactory.TrumpeterType.NORMAL
+        if(isOrderly){
+            trumpeterType = TrumpeterFactory.TrumpeterType.ORDERLY
+        }
+        TrumpeterFactory.create(trumpeterType).puff(chain.getPuffContent<Any?>())
     }
 
 }

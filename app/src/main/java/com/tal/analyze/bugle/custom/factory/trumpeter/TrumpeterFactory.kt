@@ -12,7 +12,15 @@ object TrumpeterFactory {
      * 譬如：单例化号手，任务队列化号手，排序化号手，条件化号手
      * 普通号手，每个号手仅执行自己被告知的任务。
      */
-    fun create(): ITrumpeterFactory{
-        return NormalTrumpeterImpl()
+    fun create(type: TrumpeterType): ITrumpeterFactory{
+        return when(type){
+            TrumpeterType.NORMAL->NormalTrumpeterImpl()
+            TrumpeterType.ORDERLY-> NormalTrumpeterImpl()
+        }
+    }
+
+    enum class TrumpeterType{
+        NORMAL,// 普通
+        ORDERLY,// 有序
     }
 }

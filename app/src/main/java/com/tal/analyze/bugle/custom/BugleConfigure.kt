@@ -5,10 +5,10 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import com.tal.analyze.bugle.custom.callback.PuffProgressCallback
-import com.tal.analyze.bugle.custom.intercept.listening.invoke.InvokeListeningIntercept
-import com.tal.analyze.bugle.custom.intercept.listening.base.ListeningChain
-import com.tal.analyze.bugle.custom.intercept.listening.lifecycle.ListeningLifecycleIntercept
 import com.tal.analyze.bugle.custom.intercept.listening.base.Listener
+import com.tal.analyze.bugle.custom.intercept.listening.base.ListeningChain
+import com.tal.analyze.bugle.custom.intercept.listening.invoke.InvokeListeningIntercept
+import com.tal.analyze.bugle.custom.intercept.listening.lifecycle.ListeningLifecycleIntercept
 import com.tal.analyze.bugle.custom.intercept.puff.ChainBean
 import com.tal.analyze.bugle.custom.intercept.puff.InvokePuffIntercept
 import com.tal.analyze.bugle.custom.intercept.puff.PuffChain
@@ -43,12 +43,13 @@ class PuffConfigure internal constructor() {
     // 进度回调
     var progressCallback : PuffProgressCallback? = null
     var intercepts : MutableList<IPuffIntercept>? = null
+    var isOrderly : Boolean = true // 发送是否有序
 
     fun create(key: String,msg: Any?) {
         if(intercepts == null){
             intercepts = mutableListOf()
         }
-        intercepts?.add(InvokePuffIntercept())
+        intercepts?.add(InvokePuffIntercept(isOrderly))
         PuffChain(ChainBean(key,msg,progressCallback = progressCallback),0,intercepts!!).call()
     }
 }

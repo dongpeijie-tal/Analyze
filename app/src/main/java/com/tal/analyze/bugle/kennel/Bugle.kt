@@ -12,8 +12,8 @@ import java.io.Closeable
  */
 internal class Bugle : Closeable,Available{
     // 通信关键
-    private val channel by lazy{
-        Channel<BugleMessage>()
+    val channel by lazy{
+        Channel<BugleMessage>(capacity = 100)
     }
 
     suspend fun send(msg: BugleMessage,failCall: suspend ()->Unit){
