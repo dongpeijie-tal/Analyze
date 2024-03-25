@@ -1,27 +1,27 @@
 package com.tal.analyze.bugle.kennel
 
+import java.util.concurrent.ConcurrentHashMap
+
 /**
  * 号角管理员
  */
 internal object BugleManager {
-    private var _bugle : Bugle? = null
-    // 单一号角，重复使用
-    private val singleBugle: Bugle
-        get(){
-            if(_bugle == null || !_bugle!!.isActive()){
-                _bugle = Bugle()
-            }
-            return _bugle!!
-        }
 
-    /**
-     * 单个号角
-     */
-    fun singleBugle() = singleBugle
+    private val bugleMap = ConcurrentHashMap<String,Bugle>()
 
     fun tryRest(){
-        if(_bugle?.isEmpty() == true){
-            _bugle?.close()
+
+    }
+
+    /**
+     * 查找是否创建过bugle
+     */
+    fun findBugle(key: String): Bugle {
+        return bugleMap.getOrPut(key) { Bugle() }.apply {
+            if (!isActive()) {
+                // 如果Bugle不是活跃的，创建一个新的Bugle实例替换旧的
+                bugleMap[key] = Bugle()
+            }
         }
     }
 }

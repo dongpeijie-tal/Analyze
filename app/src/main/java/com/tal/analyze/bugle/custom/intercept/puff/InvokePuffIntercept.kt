@@ -20,13 +20,13 @@ internal class InvokePuffIntercept : IPuffIntercept {
             Gramophone.record(message.key,message.msg)
         }
         /**
+         * 检查聆听者工作台是否启动
+         */
+        ListenerTaskFactory.checkListenerTask(message.key)
+        /**
          * 号手工厂创建号手,执行吹奏任务
          */
         TrumpeterFactory.create().puff(chain.getPuffContent<Any?>())
-        /**
-         * 检查聆听者工作台是否启动
-         */
-        ListenerTaskFactory.checkListenerTask()
     }
 
 }
