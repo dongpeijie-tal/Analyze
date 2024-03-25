@@ -22,7 +22,6 @@ internal class ListenerLifeProxy<T>(
     private var activityWeakReference: WeakReference<Activity>? = null
     private var viewWeakReference: WeakReference<View>? = null
     override fun onCreate(owner: LifecycleOwner) {
-        register()
         super.onCreate(owner)
     }
 
@@ -43,12 +42,14 @@ internal class ListenerLifeProxy<T>(
     override fun prepareListening() {
         when (lifecycleType) {
             IListener.LifecycleType.CUSTOM, IListener.LifecycleType.FRAGMENT -> {
+                register()
                 lifecycle?.addObserver(this)
             }
             IListener.LifecycleType.ACTIVITY -> {
                 // 记录activity WeakReference
                 // 如果注册前就被回收了，就不注册了
                 activityWeakReference!!.get()?.let {
+                    register()
                     GlobalAppLifecycle.registry(it).lifecycle.addObserver(this)
                 }
             }

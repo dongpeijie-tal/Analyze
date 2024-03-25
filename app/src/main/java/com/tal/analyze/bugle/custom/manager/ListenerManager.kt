@@ -29,6 +29,7 @@ internal object ListenerManager {
         if(!list.contains(listener)){
             list.add(listener)
         }
+        listeners[listener.key] = list
     }
 
     /**

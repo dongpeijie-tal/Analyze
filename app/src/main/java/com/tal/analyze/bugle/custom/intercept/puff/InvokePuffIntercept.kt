@@ -1,5 +1,6 @@
 package com.tal.analyze.bugle.custom.intercept.puff
 
+import com.tal.analyze.bugle.custom.factory.listener.ListenerTaskFactory
 import com.tal.analyze.bugle.custom.factory.trumpeter.TrumpeterFactory
 import com.tal.analyze.bugle.custom.open.intercept.IPuffIntercept
 import com.tal.analyze.bugle.custom.stick.Gramophone
@@ -22,6 +23,10 @@ internal class InvokePuffIntercept : IPuffIntercept {
          * 号手工厂创建号手,执行吹奏任务
          */
         TrumpeterFactory.create().puff(chain.getPuffContent<Any?>())
+        /**
+         * 检查聆听者工作台是否启动
+         */
+        ListenerTaskFactory.checkListenerTask()
     }
 
 }

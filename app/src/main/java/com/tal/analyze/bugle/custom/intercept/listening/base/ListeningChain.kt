@@ -22,7 +22,7 @@ class ListeningChain<T>(
         if(index >= intercepts.size){
             throw IllegalArgumentException("listening消息拦截器数目错误，请注意检查拦截器数量")
         }
-        intercepts[index].intercept(createChain(index + 1,contentListener))
+        intercepts[index].intercept(createChain(index + 1,listener))
     }
 
     override fun getListenListener(): IContentListener<T?> {

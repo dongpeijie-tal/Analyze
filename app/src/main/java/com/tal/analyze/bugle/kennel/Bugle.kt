@@ -2,6 +2,7 @@ package com.tal.analyze.bugle.kennel
 
 import com.tal.analyze.bugle.custom.utils.Available
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ClosedSendChannelException
 import java.io.Closeable
@@ -30,9 +31,12 @@ internal class Bugle : Closeable,Available{
         channel.close()
     }
 
+    @OptIn(ExperimentalCoroutinesApi::class)
+    fun isEmpty() = channel.isEmpty
+
     @OptIn(DelicateCoroutinesApi::class)
     override fun isActive(): Boolean {
-        return !channel.isClosedForSend
+        return !channel.isClosedForSend && !channel.isClosedForReceive
     }
 
 }

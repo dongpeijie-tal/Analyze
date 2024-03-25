@@ -1,7 +1,5 @@
 package com.tal.analyze.bugle.custom.manager
 
-import com.tal.analyze.bugle.custom.utils.lifeSafe
-
 
 /**
  * bugle排期（bugle的生命周期）
@@ -10,9 +8,14 @@ import com.tal.analyze.bugle.custom.utils.lifeSafe
 internal object BugleSchedule {
 
     // 舞台，为号手提供吹号地址
-    val stage by lifeSafe {
-        Schedule()
-    }
+    private var _stage : Schedule? = null
+    val stage : Schedule
+        get(){
+            if(_stage == null || !_stage!!.isActive()){
+                _stage = Schedule()
+            }
+            return _stage!!
+        }
 
     /**
      * 危险方法
@@ -21,7 +24,7 @@ internal object BugleSchedule {
      * 基于activity为起点，让scope有机会休息，因为在一些页面并不需要使用此scope
      */
     fun stageTryRest(){
-        stage.tryRest()
+        _stage?.tryRest()
     }
 
 }

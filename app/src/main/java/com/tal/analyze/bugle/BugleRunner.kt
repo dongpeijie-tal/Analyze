@@ -8,27 +8,28 @@ import com.tal.analyze.bugle.custom.open.api.puff
 import com.tal.analyze.bugle.custom.open.intercept.IPuffIntercept
 
 fun runBugleTest(lifecycle: Lifecycle){
-    // 发送消息
-    puff("key","value"){
-        intercepts = mutableListOf(JsonConvertIntercept())
-        progressCallback = object : PuffProgressCallback(){
-            override fun unHandler() {
-                println("没有接收者")
-            }
 
-            override fun onFail(e: Exception) {
-                super.onFail(e)
+        // 发送消息
+        puff("key","value"){
+//        intercepts = mutableListOf(JsonConvertIntercept())
+            progressCallback = object : PuffProgressCallback(){
+                override fun unHandler() {
+                    println("没有接收者")
+                }
+
+                override fun onFail(e: Exception) {
+                    super.onFail(e)
+                }
             }
         }
-    }
 
-    // 注册消息
-    listening<String>("key", optionBuilder = {
-        thread = DispatchThread.MAIN
-        this.lifecycle = lifecycle
-    }){
-        println("接收到消息$it")
-    }
+        // 注册消息
+        listening<String>("key", optionBuilder = {
+            thread = DispatchThread.MAIN
+            this.lifecycle = lifecycle
+        }){
+            println("接收到消息$it ${Thread.currentThread().name}")
+        }
 }
 
 /**
